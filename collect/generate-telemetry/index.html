@@ -277,6 +277,39 @@
   
 
 
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" checked>
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Preparing data for demonstration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Preparing data for demonstration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../products-postgres/" title="Get products into postgresql" class="md-nav__link">
+      Get products into postgresql
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
   <li class="md-nav__item md-nav__item--active">
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
@@ -332,8 +365,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#saving-to-postgres" title="Saving to Postgres" class="md-nav__link">
-    Saving to Postgres
+  <a href="#saving-to-mongodb" title="Saving to Mongodb" class="md-nav__link">
+    Saving to Mongodb
   </a>
   
 </li>
@@ -358,6 +391,11 @@
   
 </nav>
     
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -584,8 +622,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#saving-to-postgres" title="Saving to Postgres" class="md-nav__link">
-    Saving to Postgres
+  <a href="#saving-to-mongodb" title="Saving to Mongodb" class="md-nav__link">
+    Saving to Mongodb
   </a>
   
 </li>
@@ -698,81 +736,16 @@
 <div class="codehilite"><pre><span></span>python simulator/reefer_simulator_tool.py --cid C03 --product_id P02 --records 1000 --file basedata --stype o2sensor --append
 </pre></div>
 
-<h4 id="saving-to-postgres">Saving to Postgres</h4>
-<p>The same tool can be used to save to a postgresql database. First be sure to set at least the following environment variables in the setenv.sh file</p>
-<div class="codehilite"><pre><span></span>POSTGRES_URL,  POSTGRES_DBNAME,
+<h4 id="saving-to-mongodb">Saving to Mongodb</h4>
+<p>The same tool can be used to save to a mongodb database. First be sure to set at least the following environment variables in the setenv.sh file</p>
+<div class="codehilite"><pre><span></span>MONGODB_URL,  MONGODB_DBNAME,
 </pre></div>
 
-<p>If you want to use <code>psql</code> then you need to set all POSGRES* environment variables.</p>
-<p>If you use POSTGRESQL on IBM Cloud or a deployment using SSL, you need to get the SSL certificate and put it as <code>postgres.pem</code> under the <code>simulator</code> folder, or set <code>POSTGRES_SSL_PEM</code> to the path where to find this file.</p>
-<p>The <code>postgres.pem</code> file needs to be in the simulator folder.</p>
 <p>Run the ReeferRepository.py tool to create the database and to add the reference data:</p>
 <div class="codehilite"><pre><span></span>./startPythonEnv.sh IBMCLOUD
 &gt; python simulator/infrastructure/ReeferRepository.py
 </pre></div>
 
-<p>You should see:
-<div class="codehilite"><pre><span></span>
-</pre></div>
-Connect remote with ssl
-('PostgreSQL 10.10 on x86_64-pc-linux-gnu, compiled by gcc (Debian 6.3.0-18+deb9u1) 6.3.0 20170516, 64-bit',)
-[
-    {
-        "container_id": "C01",
-        "last_maintenance_date": null,
-        "reefer_model": "20RF"
-    },
-    {
-        "container_id": "C02",
-        "last_maintenance_date": null,
-        "reefer_model": "20RF"
-    },
-    {
-        "container_id": "C03",
-        "last_maintenance_date": null,
-        "reefer_model": "40RH"
-    },
-    {
-        "container_id": "C04",
-        "last_maintenance_date": null,
-        "reefer_model": "45RW"
-    }
-]
-[
-    {
-        "content_type": 1,
-        "description": "Carrots",
-        "product_id": "P01",
-        "target_humidity_level": 0.4,
-        "target_temperature": 4.0
-    },
-    {
-        "content_type": 2,
-        "description": "Banana",
-        "product_id": "P02",
-        "target_humidity_level": 0.6,
-        "target_temperature": 6.0
-    },
-    {
-        "content_type": 1,
-        "description": "Salad",
-        "product_id": "P03",
-        "target_humidity_level": 0.4,
-        "target_temperature": 4.0
-    },
-    {
-        "content_type": 2,
-        "description": "Avocado",
-        "product_id": "P04",
-        "target_humidity_level": 0.4,
-        "target_temperature": 6.0
-    }
-]
-('public', 'reefers', 'ibm-cloud-base-user', None, True, False, True, False)
-('public', 'products', 'ibm-cloud-base-user', None, True, False, True, False)
-('public', 'reefer_telemetries', 'ibm-cloud-base-user', None, True, False, True, False)
-<div class="codehilite"><pre><span></span>
-</pre></div></p>
 <p>Once done run the simulator with the --db argument like below:</p>
 <div class="codehilite"><pre><span></span>python simulator/reefer_simulator_tool.py --cid C03 --product_id P02 --records 1000  --stype poweroff --db
 
@@ -800,9 +773,10 @@ Connect remote with ssl
 Done uploading telemetry records !
 </pre></div>
 
-<p>To verify the data loaded into the database we use <code>psql</code> with the following script:
+<p>To verify the data loaded into the database we use <code>psql</code> with the following script:</p>
 <div class="codehilite"><pre><span></span>
-</pre></div></p>
+</pre></div>
+
 <p>Then in the CLI:
 <div class="codehilite"><pre><span></span># get the list of tables
 ibmclouddb&gt; \d
@@ -833,7 +807,7 @@ ibmclouddb&gt; SELECT * FROM reefer_telemetries;
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../.." title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../products-postgres/" title="Get products into postgresql" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -842,7 +816,7 @@ ibmclouddb&gt; SELECT * FROM reefer_telemetries;
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Introduction
+                Get products into postgresql
               </span>
             </div>
           </a>
