@@ -522,8 +522,28 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#with-mongodb-on-ibm-cloud" title="With mongodb on IBM Cloud" class="md-nav__link">
+    With mongodb on IBM Cloud
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#as-a-telemetry-repository-for-the-simulator" title="As a telemetry repository for the simulator" class="md-nav__link">
     As a telemetry repository for the simulator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#on-openshift-311-on-premise" title="On Openshift 3.11 on premise" class="md-nav__link">
+    On Openshift 3.11 on premise
   </a>
   
 </li>
@@ -548,13 +568,20 @@
                 
                 
                 <h1 id="work-with-mongodb-to-persist-telemetries">Work with Mongodb to persist telemetries</h1>
+<p>MongoDB is a popular document-based database that allows developers to quickly build projects without worrying about schema. Mongo components include: </p>
+<ul>
+<li>mongod - the core process that runs the actual database </li>
+<li>mongos - controls routing to the databases in case of sharding</li>
+<li>config servers (CSRS) - stores the metadata in a sharded environment. </li>
+</ul>
+<h2 id="with-mongodb-on-ibm-cloud">With mongodb on IBM Cloud</h2>
 <p>Create the service credentials and the mongodb.composed url, something starting as <code>mongodb://ibm_cloud_e154ff52_ed</code> </p>
 <p>Set this URL in setenv.sh the MONGO_DB_URL="mongodb://ibm_c..."</p>
 <p>Get the certificate as pem file</p>
 <div class="codehilite"><pre><span></span>ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; mongodbca.pem
 </pre></div>
 
-<p>Use the pymongo driver and open a connection.</p>
+<p>Use the python pymongo driver and open a connection with code like below:</p>
 <div class="codehilite"><pre><span></span> <span class="n">URL</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MONGO_DB_URL&#39;</span><span class="p">)</span>
  <span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span><span class="n">ssl</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">ssl_ca_certs</span><span class="o">=</span><span class="s1">&#39;/home/mongodb.pem&#39;</span><span class="p">)</span>
  <span class="n">db</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">ibmclouddb</span>
@@ -569,8 +596,29 @@
 </pre></div>
 
 <p>See the rest of the code in <code>ml/data/ToMongo.py</code>.</p>
-<h2 id="as-a-telemetry-repository-for-the-simulator">As a telemetry repository for the simulator</h2>
-<p>The approach is to use the same API, but get the pem file in the docker image and set the environment variables accordingly.</p>
+<h3 id="as-a-telemetry-repository-for-the-simulator">As a telemetry repository for the simulator</h3>
+<p>The approach is to use the same APIs, but get the pem file in the docker image and set the environment variables accordingly.
+The <a href="">ReeferRepository.py</a> implements the mongodb operations to save telemetry.</p>
+<h2 id="on-openshift-311-on-premise">On Openshift 3.11 on premise</h2>
+<p>We use the following image: <code>centos/mongodb-36-centos7</code>. So to install it, we use the following command:</p>
+<div class="codehilite"><pre><span></span>oc new-app -e \
+    MONGODB_USER=mongo,MONGODB_PASSWORD=&lt;password&gt;,MONGODB_DATABASE=reeferdb,MONGODB_ADMIN_PASSWORD=&lt;admin_password&gt; \
+    centos/mongodb-36-centos7
+</pre></div>
+
+<p>Connect to the pod and then use the mongo CLI</p>
+<div class="codehilite"><pre><span></span>$ oc get pods
+NAME                                         READY     STATUS             RESTARTS   AGE
+mongodb-36-centos7-1-wcn7h                   <span class="m">1</span>/1       Running            <span class="m">0</span>          4d
+
+$ oc rsh mongodb-36-centos7-1-wcn7h 
+bash-4.2$ mongo -u <span class="nv">$MONGODB_USER</span> -p <span class="nv">$MONGODB_PASSWORD</span> <span class="nv">$MONGODB_DATABASE</span>
+MongoDB shell version: <span class="m">2</span>.4.9
+connecting to: reeferdb
+&gt; show collections
+</pre></div>
+
+<p>To remove the db on openshift: <code>oc delete dc</code></p>
                 
                   
                 
