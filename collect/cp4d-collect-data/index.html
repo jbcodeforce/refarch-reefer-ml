@@ -572,6 +572,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
+    Create a joined view
+  </a>
+  
+</li>
+      
       
       
       
@@ -946,6 +953,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
+    Create a joined view
+  </a>
+  
+</li>
+      
       
       
       
@@ -1000,7 +1014,9 @@ ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; certs/mongodbca.pem
 <p>. Virtualization can help automatically group tables, so it simplify to group different data elements into a single schema.</p>
 <p>Once define a Data scientist use this connection in the Collect menu to define a new <code>Data virtualization</code> definition to discover the telemetries data.</p>
 <h2 id="create-a-new-project">Create a new project</h2>
-<p>Once logged into Cloud Pak for Data, create a new project. From the main page select the project view:</p>
+<p>Once logged into Cloud Pak for Data, create a new project. A project is a collection of assets the analytics team work on. It can include data assets and Notebooks, RStudio files
+Models, scripts...</p>
+<p>From the main page select the project view:</p>
 <p><img alt="" src="../images/create-project-0.png" /></p>
 <p>and then new project, and select <code>analytics</code>:</p>
 <p><img alt="" src="../images/create-project-1.png" /></p>
@@ -1019,6 +1035,14 @@ ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; certs/mongodbca.pem
 <p>Once done, he selects the expected tables and then use <code>Add to cart</code> link. It is important to note that we have two tables to match the telemetry json document and the sensors sub json document.</p>
 <p>The next step is to assign them to a project:</p>
 <p><img alt="" src="../images/virtualize-tables.png" /></p>
+<h2 id="create-a-joined-view">Create a joined view</h2>
+<p>We need to join the telemetries and the sensors data into the same table, to flatten the records. As there is 1 to 1 relationship as of now.
+In the Data Virtualization, a data steward selects <code>My Virutalized data</code>, and then 
+select TELEMETRIES and TELEMETRY_SENSORS tables, then the <code>Join view</code>. Within this new panel, he needs to create a join key, by drag the <code>TELEMETRICS_ID</code> and <code>_ID</code> together:</p>
+<p><img alt="" src="../images/join-tables.png" /></p>
+<p>Once joined and the view is created, he can get those new assets as part of his project.</p>
+<p><img alt="" src="../images/telemetries-asset.png" /></p>
+<p>Next is to start working within a notebook <a href="../../analyze/ws-ml-dev/">&rarr; Next &rarr;</a></p>
                 
                   
                 
