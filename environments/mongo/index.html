@@ -741,8 +741,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../devops/ci/" title="Continuous integration" class="md-nav__link">
-      Continuous integration
+    <a href="../../devops/ci/" title="Continuous Integration" class="md-nav__link">
+      Continuous Integration
     </a>
   </li>
 
@@ -753,8 +753,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../devops/cd/" title="Continuous deployment" class="md-nav__link">
-      Continuous deployment
+    <a href="../../devops/cd/" title="Continuous Deployment" class="md-nav__link">
+      Continuous Deployment
     </a>
   </li>
 
@@ -891,6 +891,28 @@
                 
                 
                 <h1 id="preparing-mongodb-on-ibm-cloud">Preparing MongoDB on IBM Cloud</h1>
+<ul>
+<li>Create the MongoDB service on IBM cloud using default configuration </li>
+</ul>
+<p><img alt="IBM Cloud Database" src="../images/ibm-cloud-dbs.png" />
+<strong>Figure 1: IBM Cloud Database</strong></p>
+<p><img alt="Mongo default configuration" src="../images/mongo-default.png" />
+<strong>Figure 2: Mongo DB default configuration</strong></p>
+<p>Once created the Mongo instance can be found under the services in your resource list:</p>
+<p><img alt="Mongo instance" src="../../collect/images/ibm-cloud-res-mongo.png" />
+<strong>Figure 3: Mongo DB service in resource list</strong></p>
+<ul>
+<li>Add a <code>Service credentials</code> to get the mongodb.composed url: (something starting as mongodb://ibm_cloud_e154ff52_ed) the username and password.</li>
+</ul>
+<p><img alt="Mongo credentials" src="../images/mongo-credentials.png" />
+<strong>Figure 4: Mongo DB credentials</strong></p>
+<ul>
+<li>Get the TLS certificate as pem file:</li>
+</ul>
+<div class="codehilite"><pre><span></span>ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; certs/mongodbca.pem
+</pre></div>
+
+<p>If you never used <strong>Mongo Compass</strong> tool to access a Mongo DB, you can get started with <a href="../mongodb-compass/">this note.</a></p>
                 
                   
                 
