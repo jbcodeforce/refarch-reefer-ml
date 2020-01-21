@@ -573,6 +573,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#watson-knowledge-catalog" title="Watson Knowledge Catalog" class="md-nav__link">
+    Watson Knowledge Catalog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
     Create a joined view
   </a>
@@ -954,6 +961,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#watson-knowledge-catalog" title="Watson Knowledge Catalog" class="md-nav__link">
+    Watson Knowledge Catalog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
     Create a joined view
   </a>
@@ -1017,31 +1031,50 @@ ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; certs/mongodbca.pem
 <p>Once logged into Cloud Pak for Data, create a new project. A project is a collection of assets the analytics team work on. It can include data assets and Notebooks, RStudio files
 Models, scripts...</p>
 <p>From the main page select the project view:</p>
-<p><img alt="Analytic project" src="../images/create-project-0.png" /></p>
+<p><img alt="Analytic project" src="../images/create-project-0.png" />
+<strong>Figure 4: Top level navigation menu</strong></p>
 <p>and then new project, and select <code>analytics</code>:</p>
-<p><img alt="" src="../images/create-project-1.png" /></p>
+<p><img alt="Add project" src="../images/create-project-1.png" /></p>
+<p><strong>Figure 5: Add project</strong></p>
 <p>Select an empty project:</p>
-<p><img alt="" src="../images/create-project-2.png" /></p>
+<p><img alt="Select project type" src="../images/create-project-2.png" />
+<strong>Figure 6: Select project type</strong></p>
 <p>Enter basic information about your project</p>
-<p><img alt="" src="../images/create-project-3.png" /></p>
+<p><img alt="Project metadata" src="../images/create-project-3.png" />
+<strong>Figure 7: Project metadata</strong></p>
 <p>The result is the access to the main project page:</p>
-<p><img alt="" src="../images/create-project-4.png" /></p>
+<p><img alt="Project main page" src="../images/create-project-4.png" />
+<strong>Figure 8: Project main page</strong></p>
 <p>Now we need to define data assets into our project...</p>
 <h2 id="data-virtualization">Data Virtualization</h2>
-<p>As introduced in <a href="https://ibm-cloud-architecture.github.io/refarch-data-ai-analytics/architecture/collect-org-data/">this paragraph</a>, we want to use data virtualization to access the historical telemetries records. The data engineer uses the <code>Data virtualization</code> capability to search for existing tables and add the tables he wants in the <code>cart</code>. For that, he uses the <code>Virtualize</code> menu </p>
-<p><img alt="" src="../images/virtualize-1.png" /></p>
-<p>and then selects mongodb in the <code>Filters</code> column and may be apply some search on specific database name. </p>
-<p><img alt="" src="../images/virtualization.png" /></p>
+<p>As introduced in <a href="https://ibm-cloud-architecture.github.io/refarch-data-ai-analytics/architecture/collect-org-data/">this paragraph</a>, we want to use data virtualization to access the historical telemetry records: The data engineer uses the <code>Data virtualization</code> capability to search for existing tables and add the tables he wants in the <code>cart</code>. For that, he uses the <code>Virtualize</code> menu </p>
+<p><img alt="Data Virtualization menu" src="../images/virtualize-1.png" />
+<strong>Figure 9: Data Virtualization menu</strong></p>
+<p>and then selects Mongo DB in the <code>Filters</code> column and may be apply some search on specific database name.</p>
+<p><img alt="" src="../images/virtualization.png" />
+<strong>Figure 10: Data Virtualization on Mongo DB</strong></p>
 <p>Once done, he selects the expected tables and then use <code>Add to cart</code> link. It is important to note that we have two tables to match the telemetry json document and the sensors sub json document.</p>
 <p>The next step is to assign them to a project:</p>
-<p><img alt="" src="../images/virtualize-tables.png" /></p>
+<p><img alt="" src="../images/virtualize-tables.png" />
+<strong>Figure 11: Data Virtualization cart and tables</strong></p>
+<h2 id="watson-knowledge-catalog">Watson Knowledge Catalog</h2>
+<p>Starting the data governance with IBM <a href="https://www.ibm.com/cloud/watson-knowledge-catalog">Watson® Knowledge Catalog</a> to help Data scientists and data stewards to find, prepare and understand the data they need.</p>
+<p>With the Catalog you can define business terms, add data governance rules to enforce protection to data assets: deny, redact, subsitute or mask columns. Then you can see the relationships between a term and assets, policies using it.</p>
+<p>The figure below illustrates the anonymized column containing sensitive information, by using policies, substitution rules and business terms.</p>
+<p><img alt="" src="../images/knowledge-catalog-anonymized-column.png" /></p>
+<p>For more detail on how to build those rule see <a href="https://www.ibm.com/cloud/garage/dte/producttour/ibm-watson-knowledge-catalog-guided-demo-explore-active-policy-management">this product tour</a>.</p>
 <h2 id="create-a-joined-view">Create a joined view</h2>
-<p>We need to join the telemetries and the sensors data into the same table, to flatten the records. As there is 1 to 1 relationship as of now.
-In the Data Virtualization, a data steward selects <code>My Virutalized data</code>, and then 
-select TELEMETRIES and TELEMETRY_SENSORS tables, then the <code>Join view</code>. Within this new panel, he needs to create a join key, by drag the <code>TELEMETRICS_ID</code> and <code>_ID</code> together:</p>
-<p><img alt="" src="../images/join-tables.png" /></p>
-<p>Once joined and the view is created, he can get those new assets as part of his project.</p>
-<p><img alt="" src="../images/telemetries-asset.png" /></p>
+<p>We need to join the telemetries and the sensors data into the same table, to flatten the records. In the current document there is a 1 to 1 relationship between telemetry and telemetry sensor, so it is easy to flatten the model in one table.</p>
+<p>In the Data Virtualization, a data steward selects <code>My Virtualized data</code>, and then 
+select TELEMETRICS and TELEMETRICS_SENSORS tables, then the <code>Join view</code>. Within this new panel, he needs to create a join key, by drag the <code>TELEMETRICS_ID</code> and <code>_ID</code> together:</p>
+<p><img alt="Joining tables" src="../images/join-tables.png" />
+<strong>Figure 12: Joining tables</strong></p>
+<p>Once joined, the new view is created, he can then get those new assets as part of his project (Use <code>Add to project</code>). The figure below show this new asset in the project:</p>
+<p><img alt="Telemetries asset in the project" src="../images/telemetries-asset.png" />
+<strong>Figure 13: Telemetries asset in the project</strong></p>
+<p>With some data:
+<img alt="Telemetry Data" src="../images/telemetry-data.png" />
+<strong>Figure 14: Telemetry data</strong></p>
 <p>Next is to start working within a model <a href="../../analyze/ws-ml-dev/">&rarr; Next &rarr;</a></p>
                 
                   
