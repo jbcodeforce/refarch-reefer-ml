@@ -964,15 +964,14 @@
                 
                 
                 <h1 id="develop-the-scoring-agent-with-cloud-pak-for-application">Develop the scoring agent with Cloud Pak for Application</h1>
-<p>We have two approaches to build the predictive scoring agent: </p>
+<p>We have two approaches to build the predictive scoring agent:</p>
 <ol>
-<li>one using a python Flask app listening to telemetry events coming from Kafka, run the predictive scoring within the same app. The model was developed with Jupiter notebook and serialized with <a href="https://docs.python.org/3/library/pickle.html">pickle</a>, so it responds in microseconds and generates anomaly to a second kafka topic. The code is under <code>scoring</code> folder, and uses essentially open source components. See <a href="../oss-scoring-app/">this article</a> to understand how it is built.</li>
-<li>one using Java microprofile 3.0 with the reactive messaging annotations, to consume telemetry events and call a remote predictive scoring service, developped and deployed within Cloud Pak for Data. The code is under <code>scoping-mp</code> folder.</li>
+<li>A python Flask app listening to telemetry events coming from Kafka, run the predictive scoring within the same app. The model was developed with Jupiter notebook and serialized with <a href="https://docs.python.org/3/library/pickle.html">pickle</a>, so it responds in microseconds and generates anomaly to a second kafka topic. The code is under <code>scoring</code> folder, and uses essentially open source components. See <a href="../oss-scoring-app/">this article</a> to understand how it is built.</li>
+<li>A Java app built on MicroProfile 3.0 with the reactive messaging annotations, to consume telemetry events and call a remote predictive scoring service, developped and deployed within Cloud Pak for Data. The code is under <code>scoping-mp</code> folder.</li>
 </ol>
-<p>The scoring service needs to use an analytics scoring model built using a machine learning techniques, and serialized so that it can be loaded in memory.</p>
+<p>The scoring service needs to use an analytics scoring model built using machine learning techniques, and serialized so that it can be loaded in memory.</p>
 <h2 id="java-micro-profile-30-with-cloud-pak-for-application">Java Micro Profile 3.0 with Cloud Pak for Application</h2>
-<p>In this implementation we use the <a href="https://appsody.dev/">Appsody</a> Java microprofile stack to create the project template and deploy with appsody CLI. 
-As the <code>scoring-mp</code> component is consuming message from Kafka and produce messages, we want to use the Reactive messaging extension to microprofile. We are reusing the approach presented in <a href="https://github.com/Emily-Jiang/reactive-service-a">this repository</a> based on <a href="https://smallrye.io/smallrye-reactive-messaging/">SmallRye Reactive Messaging</a>.</p>
+<p>As the <code>scoring-mp</code> component is consuming message from Kafka and produce messages, we want to use the Reactive messaging extension to microprofile. We are reusing the approach presented in <a href="https://github.com/Emily-Jiang/reactive-service-a">this repository</a> based on <a href="https://smallrye.io/smallrye-reactive-messaging/">SmallRye Reactive Messaging</a>.</p>
 <h2 id="deploying-the-model-using-watson-machine-learning">Deploying the model using Watson Machine Learning</h2>
 <p>TODO Cloud Pak model deployment</p>
 <h2 id="further-readings">Further Readings</h2>

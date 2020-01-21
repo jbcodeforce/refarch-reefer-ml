@@ -1116,10 +1116,10 @@
                 
                 
                 <h1 id="ibm-cloud-pak-approach">IBM Cloud Pak Approach</h1>
-<p>The goal of this approach is to use the following IBM Cloud Paks to develop and deploy the solution. </p>
+<p>The goal of this approach is to use the following IBM Cloud Paks to develop and deploy the solution.</p>
 <p>The following diagram below, illustrates the features or components used in each cloud paks to support the implementation.</p>
 <p><img alt="" src="../images/cp-approach.png" /></p>
-<p>The grey components are part of the solution implementation. </p>
+<p>The grey components are part of the solution implementation.</p>
 <ul>
 <li>As part of <strong>Cloud pak for Application</strong>, we are using <a href="https://appsody.dev/">Appsody</a> to generate the code and the development build, test, deploy for the Reefer simulator done in Python / Flask, and for the scoring app that is a Java Microprofile 3.0 running on Liberty server. The microprofile app is also generated using Appsody and build and deploy. As part of the CI/CD tooling, we use public github (This repository !), with Github action and <a href="https://tekton.dev/">Tekton</a> for the pipeline deployment. Cloud Pak for Application is deployed on Openshift 4.2</li>
 <li><strong>Cloud Pak for Integration</strong> is used to deploy IBM Event Streams, the IBM event backbone based on Apache Kafka. We wrote a lot of <a href="https://ibm-cloud-architecture.github.io/refarch-eda/kafka/readme/">content and best practices around Kafka</a> in the Event Driven Architecture (EDA) repository. In the EDA reference implementation solution we present other CP4I assets.</li>
@@ -1130,29 +1130,35 @@
 <p>The numbered figure below, illustrates the step by step environment setup:</p>
 <p><img alt="" src="../images/cp-approach-num.png" /></p>
 <h3 id="1-postgresql-service">1- PostgreSQL Service</h3>
-<p>The products database is defined in PostgreSQL service within IBM Cloud public. To provision the environment you can read <a href="../environments/postgresql/">this note</a>, and then to populate the data use <a href="../collect/products-postgres/">this note</a> to see how we use this service and the python code in the simulator folder or the psql tool to create the product database. </p>
+<p>The products database is defined in PostgreSQL service within IBM Cloud public. To provision the environment you can read <a href="../environments/postgresql/">this note</a>, and then to populate the data use <a href="../collect/products-postgres/">this note</a> to see how we use this service and the python code in the simulator folder or the psql tool to create the product database.</p>
 <h3 id="2-mongodb-service">2- MongoDB Service</h3>
 <p>The long term persistence for the telemetry metrics we are using mongodb on IBM Cloud. This <a href="../collect/generate-telemetry/">separate note</a> goes into details on how we prepare the data and upload them to mongo.</p>
 <h3 id="3-openshift-42-cluster-for-cp4i-and-cp4app">3- Openshift 4.2 Cluster for CP4I and CP4App</h3>
-<p>To install Openshift 4.2 cluster we recommend following Red Hat tutorials and <a href="">our cookbook</a>.</p>
+<p>To install Openshift 4.2 cluster we recommend following Red Hat tutorials and <a href="https://cloudpak8s.io/ocp/introduction/">our cookbook</a>.</p>
 <h3 id="4-deploy-event-streams-and-defines-topics">4- Deploy event streams and defines topics</h3>
-<p>We are presenting a quick overview of deploying IBM Event Streams from Cloud pak for Integration and how to configure the needed Kafka topics in <a href="../environments/event-streams/">this note</a>.</p>
+<p>We are presenting a quick overview of deploying IBM Event Streams from the Cloud Pak for Integration in <a href="../environments/event-streams/#deploying-event-streams-from-cloud-pak-for-integration">this note</a> and how to configure the required Kafka topics with automation in <a href="../environments/event-streams/#create-kafka-topics-through-kubernetes-job-automation">this note</a>.</p>
 <h3 id="5-deploy-cloud-pak-for-application">5- Deploy Cloud Pak for Application</h3>
+<p>As part of Cloud Pak for Application we are using Tekton, Appsody and the Kabanero deployment. The <a href="https://kabanero.io/docs/ref/general/overview/architecture-overview.html">architecture and development workflows</a> are presented in this figure below:</p>
+<p><img alt="" src="../images/kabanero-arch-overview.png" /></p>
+<p>The approach is to provide capabilities and extension so that lead developers or architects can define Stack and base code to reuse.</p>
 <p>See also the reference architecture <a href="https://www.ibm.com/cloud/garage/architectures/application-modernization">article for application modernization</a>.</p>
 <h3 id="6-reefer-simulator-as-appsody-python">6- Reefer simulator as Appsody Python</h3>
-<p>We are presenting how we used the Appsody python template as a based to implement the Reefer simulator combined with other python development best practices, in <a href="../infuse/simul-app/">this note</a>.</p>
+<p>We are presenting how we used the <a href="https://appsody.dev">Appsody</a> Python Stack as a base to implement the Reefer Simulator, combined with other Python development best practices in <a href="../infuse/simul-app/">this note</a> and we use the <a href="../devops/ci/">CI</a> and <a href="../devops/cd/">CD</a> practices for deployment.</p>
 <h3 id="7-scoring-microservice-as-java-microprofile-app">7- Scoring microservice as Java Microprofile app</h3>
-<p>We are detailing in <a href="../infuse/dev-scoring/">this note</a>, how to leverage Appsody, Liberty profile server, Microprofile 3.0 with the new Reactive Messaging to integrate with Kafka.</p>
+<p>We are detailing how to leverage the Liberty profile server and MicroProfile 3.0 with the new Reactive Messaging to integrate with Kafka in <a href="../infuse/dev-scoring/">this note</a>.</p>
 <h3 id="8-data-virtualization">8- Data Virtualization</h3>
-<p>The data management is done using the Data Virtualization, on a remote Mongo DB datasource. We used this approach, to illustrate how easy, it is to define virtual tables, join them to prepare a data set for machine learning work. The Telemetries are saved in a <a href="../environments/mongo/">MongoDB instance provisioned</a> on the IBM Cloud.  </p>
+<p>The data management is done using <a href="https://www.ibm.com/support/producthub/icpdata/">Cloud Pak for data</a> <a href="https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/dv/dv_overview.html">Data Virtualization</a> capability, on a remote Mongo DB datasource. We used this approach, to illustrate how easy, it is to define virtual tables, join them to prepare a data set for machine learning work. The Telemetries are saved in a <a href="../environments/mongo/">MongoDB instance provisioned</a> on the IBM Cloud.</p>
 <p>You can read the detail in <a href="../collect/cp4d-collect-data/">this note</a>.</p>
 <h3 id="9-anomaly-detection-notebook">9- Anomaly detection notebook</h3>
 <p><a href="../analyze/ws-ml-dev/">this note</a></p>
 <h3 id="10-anomaly-detection-service">10- Anomaly detection service</h3>
 <h3 id="11-cloud-pak-for-automation">11- Cloud Pak for Automation</h3>
-<p>To be done. </p>
+<p>Digital business automation (DBA) allows an organization to improve its operations by streamlining the way people participate in business processes and workflows, automate repeatable decisions, and provide business users with the ability to edit and change the business logic involved in these business processes. </p>
+<p><img alt="" src="../bpm/images/cp4a.jpg" /></p>
+<p>The implementation of the Engineer dispatching for the maintenance of the Reefer containers is documented in <a href="../bpm/readme/">this note.</a></p>
+<p>For more information about CP for Automation read the <a href="https://cloudpak8s.io/automation/introduction/">Garage team's cookbook</a>, and the <a href="https://ibm-cloud-architecture.github.io/denim-compute/environment/rhos-install-baw/">'Denim compute'</a> to present a reference implementation for a Digital Business Automation solution.</p>
 <h3 id="12-reefer-maintenance-business-process">12- Reefer Maintenance business process</h3>
-<p>The reefer maintenance process is explain in <a href="../bpm/readme/">this note</a>.</p>
+<p>The reefer maintenance process is explained in <a href="../bpm/readme/">this note</a>.</p>
                 
                   
                 

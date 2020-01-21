@@ -513,13 +513,21 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#isolated-python-environment" title="Isolated python environment" class="md-nav__link">
-    Isolated python environment
+  <a href="#create-and-save-telemetry-data-with-kubernetes-job-running-on-remote-cluster" title="Create and save telemetry data with Kubernetes Job running on remote cluster" class="md-nav__link">
+    Create and save telemetry data with Kubernetes Job running on remote cluster
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#create-local-telemetry-data-manually" title="Create local telemetry data manually" class="md-nav__link">
+    Create local telemetry data manually
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#generate-data-as-csv-file" title="Generate data as csv file" class="md-nav__link">
     Generate data as csv file
   </a>
@@ -559,10 +567,15 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#saving-to-mongodb" title="Saving to Mongodb" class="md-nav__link">
-    Saving to Mongodb
+  <a href="#save-local-telemetry-data-to-mongodb" title="Save local telemetry data to MongoDB" class="md-nav__link">
+    Save local telemetry data to MongoDB
   </a>
   
     <nav class="md-nav">
@@ -573,8 +586,7 @@
     Using Mongodb as service on IBM Cloud
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#start-python-environment" title="Start python environment" class="md-nav__link">
@@ -601,11 +613,6 @@
   <a href="#verify-data-with-mongo-cli" title="Verify data with mongo CLI" class="md-nav__link">
     Verify data with mongo CLI
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1023,13 +1030,21 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#isolated-python-environment" title="Isolated python environment" class="md-nav__link">
-    Isolated python environment
+  <a href="#create-and-save-telemetry-data-with-kubernetes-job-running-on-remote-cluster" title="Create and save telemetry data with Kubernetes Job running on remote cluster" class="md-nav__link">
+    Create and save telemetry data with Kubernetes Job running on remote cluster
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#create-local-telemetry-data-manually" title="Create local telemetry data manually" class="md-nav__link">
+    Create local telemetry data manually
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#generate-data-as-csv-file" title="Generate data as csv file" class="md-nav__link">
     Generate data as csv file
   </a>
@@ -1069,10 +1084,15 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#saving-to-mongodb" title="Saving to Mongodb" class="md-nav__link">
-    Saving to Mongodb
+  <a href="#save-local-telemetry-data-to-mongodb" title="Save local telemetry data to MongoDB" class="md-nav__link">
+    Save local telemetry data to MongoDB
   </a>
   
     <nav class="md-nav">
@@ -1083,8 +1103,7 @@
     Using Mongodb as service on IBM Cloud
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#start-python-environment" title="Start python environment" class="md-nav__link">
@@ -1111,11 +1130,6 @@
   <a href="#verify-data-with-mongo-cli" title="Verify data with mongo CLI" class="md-nav__link">
     Verify data with mongo CLI
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1159,16 +1173,64 @@
                 
                 <h1 id="generate-telemetry-data-in-mongodb">Generate telemetry data in MongoDB</h1>
 <p>We are using the simulator to generate data. In the industry, when developing new manufactured product, the engineers do not have a lot of data so they also use a mix of real sensors with simulators to create fake but realistic data to develop and test their models.</p>
-<p>The historical data need to represent failure, and represent the characteristics of a Reefer container. We have defined some sensors to get interesting correlated or independant features.</p>
-<p>As of now our telemetry event structure can be seen in this <a href="https://github.com/ibm-cloud-architecture/refarch-reefer-ml/tree/master/data_schema/reefer_telemetry_value.avsc">avro schema</a>.</p>
-<p>For the machine learning environment we can use csv file or mongodb database or kafka topic as data source.  The data generation environment looks like in the figure below:</p>
+<p>The historical data need to represent failure and represent the characteristics of a Reefer container. We have defined some sensors to get interesting correlated or independent features.</p>
+<p>As of now, our telemetry event structure can be seen in this <a href="https://github.com/ibm-cloud-architecture/refarch-reefer-ml/tree/master/data_schema/reefer_telemetry_value.avsc">avro schema</a>.</p>
+<p>For the machine learning environment we can use a csv file or mongodb database or kafka topic as data source.  The data generation environment looks like in the figure below:</p>
 <p><img alt="Data collection Simulation" src="../images/data-collect.png" />
 <strong>Figure 1: Data collection Simulation</strong></p>
 <p>The simulator can run as a standalone tool (1) to create training and test data to be saved in a remote mongodb database or can be used to save to csv file. when it runs to simulate reefer container telemetry generation (2), it creates events to Kafka topic, and a stream application can save telemetry records to MongoDB too.</p>
-<p>We use <a href="https://cloud.ibm.com/catalog?category=databases">mongodb as a service</a> on IBM cloud.</p>
+<p>We use <a href="https://cloud.ibm.com/catalog/services/databases-for-mongodb">MongoDB as a Service</a> on <a href="https://cloud.ibm.com/catalog?category=databases">IBM Cloud</a> in our reference implementations.</p>
 <p><img alt="IBM Cloud Database" src="../../environments/images/ibm-cloud-dbs.png" />
 <strong>IBM Cloud Database</strong></p>
-<h2 id="isolated-python-environment">Isolated python environment</h2>
+<p>We have provided the following documented methods for populating the Product database:</p>
+<ol>
+<li><a href="#create-and-save-telemetry-data-with-kubernetes-job-running-on-remote-cluster">Create and save telemetry data with Kubernetes Job running on remote cluster</a> <em>(RECOMMENDED)</em></li>
+<li><a href="#create-local-telemetry-data-manually">Create local telemetry data manually</a></li>
+<li><a href="#save-local-telemetry-data-to-mongodb">Save local telemetry data to MongoDB</a></li>
+</ol>
+<h2 id="create-and-save-telemetry-data-with-kubernetes-job-running-on-remote-cluster">Create and save telemetry data with Kubernetes Job running on remote cluster</h2>
+<p>In an effort to keep development systems as clean as possible and speed up deployment of various scenarios, our deployment tasks have been encapsulated in <a href="https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/">Kubernetes Jobs</a>. These are runnable on any Kubernetes platform, including OpenShift.</p>
+<p>The predefined job for this task will create the required telemetry data and save it directly to the configured MongoDB database instance. This is the most direct method for telemetry data generation and what is necessary for the "happy path" version of the environment deployment. If you have use case needs that require other locations for data to be saved or transmitted, you can either adapt the Job here or follow the other sections of this document.</p>
+<ol>
+<li>
+<p>Utilizing <a href="https://cloud.ibm.com/catalog/services/databases-for-mongodb">Databases for MongoDB</a> on IBM Cloud, the following Kubernetes Secrets are required to be created from the auto-generated <em>Service credentials</em> in the target namespace:</p>
+<ol>
+<li><code>mongodb-url</code> <em>(in the format of <code>hostname-a,hostname-b</code>, as the endpoint is a paired replica set)</em>
+  <div class="codehilite"><pre><span></span>kubectl create secret generic mongodb-url --from-literal<span class="o">=</span><span class="nv">binding</span><span class="o">=</span><span class="s1">&#39;1a2...domain.cloud:30796,1a2c....cloud:30796&#39;</span>
+</pre></div></li>
+<li><code>mongodb-user</code>
+  <div class="codehilite"><pre><span></span>kubectl create secret generic mongodb-user --from-literal<span class="o">=</span><span class="nv">binding</span><span class="o">=</span><span class="s1">&#39;ibm_cloud_...&#39;</span>
+</pre></div></li>
+<li><code>mongodb-pwd</code>
+  <div class="codehilite"><pre><span></span>kubectl create secret generic mongodb-pwd --from-literal<span class="o">=</span><span class="nv">binding</span><span class="o">=</span><span class="s1">&#39;335....223&#39;</span>
+</pre></div></li>
+<li><code>mongodb-ca-pem</code> <em>(this requires use of the <a href="https://cloud.ibm.com/docs/databases-cli-plugin?topic=cloud-databases-cli-cdb-reference">Cloud Databases CLI Plug-in</a> for the IBM Cloud CLI)</em>
+  <div class="codehilite"><pre><span></span>ibmcloud cdb deployment-cacert <span class="o">[</span>MongoDB on IBM Cloud service instance name<span class="o">]</span> &gt; mongodb.crt
+kubectl create secret generic mongodb-ca-pem --from-literal<span class="o">=</span><span class="nv">binding</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat mongodb.crt<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div></li>
+</ol>
+</li>
+<li>
+<p>Review <code>/scripts/createMongoTelemetryData.yaml</code> and update <strong>lines 32, 34, 36, or 38</strong> with any additional modifications to the generated telemetry data. Additional rows can be added as needed in the same job execution. The following fields are acceptable inputs:</p>
+<ol>
+<li><code>stype</code> can the <code>normal</code>, <code>poweroff</code>, <code>o2sensor</code>, and <code>co2sensor</code>.</li>
+<li><code>cid</code> can be <code>C01</code>, <code>C02</code>, <code>C03</code>, or <code>C04</code>.</li>
+<li><code>pid</code> can be <code>P01</code>, <code>P02</code>, <code>P03</code>, or <code>P04</code>.</li>
+<li><code>records</code> can be any positive integer (within reason).</li>
+</ol>
+</li>
+<li>
+<p>Create the <code>create-telemetry-data</code> Job from the root of the <code>refarch-reefer-ml</code> repository:
+<div class="codehilite"><pre><span></span>kubectl apply -f scripts/createMongoTelemetryData.yaml
+</pre></div></p>
+</li>
+<li>
+<p>You can tail the created pod's output to see the progress of the database initialization:
+<div class="codehilite"><pre><span></span>kubectl logs -f --selector<span class="o">=</span>job-name<span class="o">=</span>create-telemetry-data
+</pre></div></p>
+</li>
+</ol>
+<h2 id="create-local-telemetry-data-manually">Create local telemetry data manually</h2>
 <p>If not done yet, you can use our docker image to get an isolated python environment. For that do the following preparation steps:</p>
 <div class="codehilite"><pre><span></span><span class="c1"># From refarch_reefer_ml folder</span>
 <span class="nb">cd</span> docker
@@ -1179,14 +1241,14 @@ ibmcase/python                                  latest                 a89153c0e
 </pre></div>
 
 <p>The dockerfile installed the needed dependencies and use pipenv. Also we preset the PYTHONPATH environment variable to <code>/home</code> to specify where python should find the application specifics modules.</p>
-<h2 id="generate-data-as-csv-file">Generate data as csv file</h2>
-<h3 id="start-the-python-environment">Start the python environment</h3>
+<h3 id="generate-data-as-csv-file">Generate data as csv file</h3>
+<h4 id="start-the-python-environment">Start the python environment</h4>
 <p>From the docker image created before, use the provided script as:</p>
 <div class="codehilite"><pre><span></span><span class="c1"># From refarch_reefer_ml folder</span>
 ./startPythonEnv.sh
 </pre></div>
 
-<h3 id="generate-power-off-metrics">Generate power off metrics</h3>
+<h4 id="generate-power-off-metrics">Generate power off metrics</h4>
 <p>When a reefer container loses power, restart and reloose it, it may become an issue. This is the goal of this simulation.</p>
 <p>The simulator accepts different arguments as specified below:</p>
 <div class="codehilite"><pre><span></span>usage reefer_simulator-tool
@@ -1238,16 +1300,16 @@ ibmcase/python                                  latest                 a89153c0e
 <span class="m">2001</span> telemetries.csv
 </pre></div>
 
-<h3 id="generate-co2-sensor-malfunction-in-same-file">Generate Co2 sensor malfunction in same file</h3>
+<h4 id="generate-co2-sensor-malfunction-in-same-file">Generate Co2 sensor malfunction in same file</h4>
 <p>In the same way as above the simulator can generate data for Co2 sensor malfunction using the command:</p>
 <div class="codehilite"><pre><span></span>python simulator/reefer_simulator_tool.py --cid C03 --product_id P02 --records <span class="m">1000</span> --file basedata --stype co2sensor --append
 </pre></div>
 
-<h3 id="generate-o2-sensor-malfunction-in-same-file">Generate O2 sensor malfunction in same file</h3>
+<h4 id="generate-o2-sensor-malfunction-in-same-file">Generate O2 sensor malfunction in same file</h4>
 <div class="codehilite"><pre><span></span>python simulator/reefer_simulator_tool.py --cid C03 --product_id P02 --records <span class="m">1000</span> --file basedata --stype o2sensor --append
 </pre></div>
 
-<h2 id="saving-to-mongodb">Saving to Mongodb</h2>
+<h2 id="save-local-telemetry-data-to-mongodb">Save local telemetry data to MongoDB</h2>
 <p>MongoDB is a popular document-based database that allows developers to quickly build projects without worrying about schema. Mongo components include:</p>
 <ul>
 <li>mongod - the core process that runs the actual database</li>
@@ -1262,7 +1324,7 @@ ibmcase/python                                  latest                 a89153c0e
 <div class="codehilite"><pre><span></span>ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; certs/mongodbca.pem
 </pre></div>
 
-<h4 id="start-python-environment">Start python environment</h4>
+<h3 id="start-python-environment">Start python environment</h3>
 <p>Use IBMCLOUD if you use mongodb, postgresql and kafka on cloud, or LOCAL for kafka and postgresql running via docker compose.</p>
 <div class="codehilite"><pre><span></span> ./startPythonEnv IBMCLOUD
 
@@ -1286,7 +1348,7 @@ root@03721594782f: <span class="nb">cd</span> /home
 
 <p>See the rest of the code in <a href="https://github.com/ibm-cloud-architecture/refarch-reefer-ml/blob/master/ml/data/ToMongo.py">ml/data/ToMongo.py</a> to load records from CSV file, or the <a href="https://github.com/ibm-cloud-architecture/refarch-reefer-ml/blob/master/simulator/infrastructure/ReeferRepository.py">simulator/infrastructure/ReeferRepository.py</a> for the one generating metrics and uploading them directly to MongoDB.</p>
 <p>We propose two approaches to load data to MongoDB: use created csv file, or run the simulator tool connected to MongoDB.</p>
-<h4 id="add-data-from-csv-file">Add data from csv file</h4>
+<h3 id="add-data-from-csv-file">Add data from csv file</h3>
 <p>Using the <code>ToMongo.py</code> script we can load the data from the <code>ml/data/telemetries.csv</code> file to mongodb. In a Terminal window uses the following commmand:</p>
 <div class="codehilite"><pre><span></span>./startPythonEnv.sh IBMCLOUD
 
@@ -1295,7 +1357,7 @@ root@03721594782f: <span class="nb">cd</span> /home
 python ToMongo.py
 </pre></div>
 
-<h4 id="add-data-using-the-telemetry-repository-of-the-simulator">Add data using the telemetry repository of the simulator</h4>
+<h3 id="add-data-using-the-telemetry-repository-of-the-simulator">Add data using the telemetry repository of the simulator</h3>
 <p>Verify your MONGO* environment variables are set according to your created service in the <code>scriptssetenv.sh</code> file.</p>
 <div class="codehilite"><pre><span></span>./startPythonEnv.sh IBMCLOUD
 
@@ -1308,13 +1370,13 @@ python simulator/reefer_simulator_tool.py --cid C03 --product_id P02 --records <
 python simulator/reefer_simulator_tool.py --cid C03 --product_id P02 --records <span class="m">1000</span>  --stype o2sensor --db
 </pre></div>
 
-<h4 id="verify-data-with-mongo-cli">Verify data with mongo CLI</h4>
+<h3 id="verify-data-with-mongo-cli">Verify data with mongo CLI</h3>
 <p>To verify the data loaded into the database we use <a href="https://docs.mongodb.com/manual/installation/">mongo</a> CLI with the following command:</p>
 <div class="codehilite"><pre><span></span><span class="c1"># to connect</span>
 mongo -u <span class="nv">$USERNAME</span> -p <span class="nv">$PASSWORD</span> --tls --tlsCAFile mongodb.pem --authenticationDatabase admin --host replset/1a2ce8ca-&lt;&gt;.bn&lt;&gt;c0.databases.appdomain.cloud:30796 --tlsAllowInvalidCertificates
 </pre></div>
 
-<p><em>The full host name is masked</em>. </p>
+<p><em>The full host name is masked</em>.</p>
 <p>The USERNAME and PASSWORD are environment variables you set from the IBM Cloud service credentials. Something like:</p>
 <div class="codehilite"><pre><span></span>{
   &quot;connection&quot;: {
@@ -1351,7 +1413,7 @@ replset:PRIMARY&gt; db.getCollection(&quot;telemetries&quot;).find()
 NAME                                         READY     STATUS             RESTARTS   AGE
 mongodb-36-centos7-1-wcn7h                   <span class="m">1</span>/1       Running            <span class="m">0</span>          4d
 
-$ oc rsh mongodb-36-centos7-1-wcn7h 
+$ oc rsh mongodb-36-centos7-1-wcn7h
 bash-4.2$ mongo -u <span class="nv">$MONGODB_USER</span> -p <span class="nv">$MONGODB_PASSWORD</span> <span class="nv">$MONGODB_DATABASE</span>
 MongoDB shell version: <span class="m">2</span>.4.9
 connecting to: reeferdb
