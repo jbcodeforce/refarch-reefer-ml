@@ -573,15 +573,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watson-knowledge-catalog" title="Watson Knowledge Catalog" class="md-nav__link">
-    Watson Knowledge Catalog
+  <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
+    Create a joined view
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
-    Create a joined view
+  <a href="#next" title="Next" class="md-nav__link">
+    Next
   </a>
   
 </li>
@@ -961,15 +961,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watson-knowledge-catalog" title="Watson Knowledge Catalog" class="md-nav__link">
-    Watson Knowledge Catalog
+  <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
+    Create a joined view
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-a-joined-view" title="Create a joined view" class="md-nav__link">
-    Create a joined view
+  <a href="#next" title="Next" class="md-nav__link">
+    Next
   </a>
   
 </li>
@@ -1025,8 +1025,7 @@ ibmcloud cdb deployment-cacert gse-eda-mongodb &gt; certs/mongodbca.pem
 <p><img alt="CP4D add connection" src="../images/add-connection.png" />
 <strong>Figure 3: Define connection in CP4D</strong></p>
 <p><strong>Add connection in Cloud Pak for Data</strong></p>
-<p>. Virtualization can help automatically group tables, so it simplifies to group different data elements into a single schema.</p>
-<p>Once define a Data scientist use this connection in the Collect menu to define a new <code>Data virtualization</code> definition to discover the telemetries data.</p>
+<p>Virtualization may help automatically group tables without moving data, so we can group different data elements into a single schema.</p>
 <h2 id="create-a-new-project">Create a new project</h2>
 <p>Once logged into Cloud Pak for Data, create a new project. A project is a collection of assets the analytics team work on. It can include data assets and Notebooks, RStudio files
 Models, scripts...</p>
@@ -1057,24 +1056,26 @@ Models, scripts...</p>
 <p>The next step is to assign them to a project:</p>
 <p><img alt="" src="../images/virtualize-tables.png" />
 <strong>Figure 11: Data Virtualization cart and tables</strong></p>
-<h2 id="watson-knowledge-catalog">Watson Knowledge Catalog</h2>
-<p>Starting the data governance with IBM <a href="https://www.ibm.com/cloud/watson-knowledge-catalog">Watson® Knowledge Catalog</a> to help Data scientists and data stewards to find, prepare and understand the data they need.</p>
-<p>With the Catalog you can define business terms, add data governance rules to enforce protection to data assets: deny, redact, subsitute or mask columns. Then you can see the relationships between a term and assets, policies using it.</p>
-<p>The figure below illustrates the anonymized column containing sensitive information, by using policies, substitution rules and business terms.</p>
-<p><img alt="" src="../images/knowledge-catalog-anonymized-column.png" /></p>
-<p>For more detail on how to build those rule see <a href="https://www.ibm.com/cloud/garage/dte/producttour/ibm-watson-knowledge-catalog-guided-demo-explore-active-policy-management">this product tour</a>.</p>
 <h2 id="create-a-joined-view">Create a joined view</h2>
-<p>We need to join the telemetries and the sensors data into the same table, to flatten the records. In the current document there is a 1 to 1 relationship between telemetry and telemetry sensor, so it is easy to flatten the model in one table.</p>
-<p>In the Data Virtualization, a data steward selects <code>My Virtualized data</code>, and then 
-select TELEMETRICS and TELEMETRICS_SENSORS tables, then the <code>Join view</code>. Within this new panel, he needs to create a join key, by drag the <code>TELEMETRICS_ID</code> and <code>_ID</code> together:</p>
+<p>We need to join the telemetries and the sensors data into the same table, to flatten the records. In the current Mongo document, there is a 1 to 1 relationship between telemetry and telemetry sensor, so it is easy to flatten the model in one table.</p>
+<p>In the Data Virtualization, as a data steward, we select <code>My Virtualized data</code>, and then 
+select TELEMETRICS and TELEMETRICS_SENSORS tables, then the <code>Join view</code>. Within this new panel, we create a join key, by dragging the <code>TELEMETRICS_ID</code> and <code>_ID</code> together:</p>
 <p><img alt="Joining tables" src="../images/join-tables.png" />
 <strong>Figure 12: Joining tables</strong></p>
-<p>Once joined, the new view is created, he can then get those new assets as part of his project (Use <code>Add to project</code>). The figure below show this new asset in the project:</p>
+<p>Once joined, a new view is created:</p>
+<p><img alt="Joined view" src="../images/join-view.png" />
+<strong>Figure 13: Join view</strong></p>
+<p>We see, now, those new assets as part of the project (Use <code>Add to project</code>). The figure below show this new asset in the project:</p>
 <p><img alt="Telemetries asset in the project" src="../images/telemetries-asset.png" />
-<strong>Figure 13: Telemetries asset in the project</strong></p>
+<strong>Figure 14: Telemetries asset in the project</strong></p>
 <p>With some data:
 <img alt="Telemetry Data" src="../images/telemetry-data.png" />
-<strong>Figure 14: Telemetry data</strong></p>
+<strong>Figure 15: Telemetry data</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note<p>It is important to note that building those views will create new connection to the database engine that can be accessed by using external tool.</p>
+</p>
+</div>
+<h2 id="next">Next</h2>
 <p>Next is to start working within a model <a href="../../analyze/ws-ml-dev/">&rarr; Next &rarr;</a></p>
                 
                   
